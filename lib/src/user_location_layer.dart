@@ -130,7 +130,7 @@ class _MapsPluginLayerState extends State<MapsPluginLayer>
                               : ClipOval(
                                   child: Container(
                                     child: new Transform.rotate(
-                                        angle: (((_direction * -1) ?? 0) * (math.pi / 180) * -1) + 180,
+                                        angle: (((_direction * -1) ?? 0) * (math.pi / 180.0) * -1.0) + 180.0,
                                         child: Container(
                                           child: CustomPaint(
                                             size: Size(60.0, 60.0),
