@@ -113,6 +113,9 @@ class _MapsPluginLayerState extends State<MapsPluginLayer>
 
           printLog("Direction : " + (_direction ?? 0).toString());
 
+          var directionDegrees = _direction ?? 0;
+          double directionRadians = ((directionDegrees) * math.pi) / 180.0;
+          
           _locationMarker = UserLocationMarker(
               height: 60.0,
               width: 60.0,
@@ -130,7 +133,7 @@ class _MapsPluginLayerState extends State<MapsPluginLayer>
                               : ClipOval(
                                   child: Container(
                                     child: new Transform.rotate(
-                                        angle: (((_direction * -1) ?? 0) * (math.pi / 180.0) * -1.0) + 180.0,
+                                        angle: directionRadians,
                                         child: Container(
                                           child: CustomPaint(
                                             size: Size(60.0, 60.0),
@@ -363,7 +366,9 @@ class MyDirectionPainter extends CustomPainter {
     final Paint paint = new Paint()..shader = gradient.createShader(rect);
 
     // and draw an arc
-    canvas.drawArc(rect, pi / 5, pi * 3 / 5, true, paint);
+    double sweepAngle = pi * 3.0 / 5.0;
+    double startAngle = -(sweepAngle / 2.0) - (pi / 2.0);
+    canvas.drawArc(rect, startAngle, sweepAngle, true, paint);
   }
 
   @override
