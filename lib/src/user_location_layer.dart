@@ -109,12 +109,8 @@ class _MapsPluginLayerState extends State<MapsPluginLayer>
           if (_locationMarker != null) {
             widget.options.markers.remove(_locationMarker);
           }
-          //widget.options.markers.clear();
 
-          printLog("Direction : " + (_direction ?? 0).toString());
-
-          var directionDegrees = _direction ?? 0;
-          double directionRadians = ((directionDegrees) * math.pi) / 180.0;
+          double directionRadians = ((_direction ?? 0) * math.pi) / 180.0;
           
           _locationMarker = UserLocationMarker(
               height: 60.0,
@@ -340,6 +336,9 @@ class _MapsPluginLayerState extends State<MapsPluginLayer>
 }
 
 class MyDirectionPainter extends CustomPainter {
+  double _sweepAngle = 1.884955592153876; // pi * 3.0 / 5.0;
+  double _startAngle = -2.513274122871835; // -(sweepAngle / 2.0) - (pi / 2.0);
+
   @override
   void paint(Canvas canvas, Size size) {
     // create a bounding square, based on the centre and radius of the arc
@@ -366,9 +365,7 @@ class MyDirectionPainter extends CustomPainter {
     final Paint paint = new Paint()..shader = gradient.createShader(rect);
 
     // and draw an arc
-    double sweepAngle = pi * 3.0 / 5.0;
-    double startAngle = -(sweepAngle / 2.0) - (pi / 2.0);
-    canvas.drawArc(rect, startAngle, sweepAngle, true, paint);
+    canvas.drawArc(rect, _startAngle, _sweepAngle, true, paint);
   }
 
   @override
