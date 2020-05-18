@@ -110,8 +110,6 @@ class _MapsPluginLayerState extends State<MapsPluginLayer>
             widget.options.markers.remove(_locationMarker);
           }
 
-          double directionRadians = ((_direction ?? 0) * math.pi) / 180.0;
-          
           _locationMarker = UserLocationMarker(
               height: 60.0,
               width: 60.0,
@@ -129,7 +127,7 @@ class _MapsPluginLayerState extends State<MapsPluginLayer>
                               : ClipOval(
                                   child: Container(
                                     child: new Transform.rotate(
-                                        angle: directionRadians,
+                                        angle: ((_direction ?? 0) * math.pi) / 180.0,
                                         child: Container(
                                           child: CustomPaint(
                                             size: Size(60.0, 60.0),
